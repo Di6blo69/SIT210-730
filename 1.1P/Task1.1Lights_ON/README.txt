@@ -1,0 +1,7 @@
+I have used Arduino Uno instead of nano because my nano board didn't work. I think the reason is some of the pins are not working. 
+
+This project is a smart lighting system designed to assist elderly people when they are returning home when its dark. In this case, when Linda returns home after her evening activities the visibility is low and to help her safety we made a push button to activate two lights.
+
+when the button is pressed, the porch light turns on for 30 seconds and the hallway light turns on for 60 seconds. This system is made using Arduino uno, push button, breadboard, two LED lights, resistors and jumper wires. Modular programming has used to developed this program. The setup() function initializes the hardware by setting the LED pins as outputs and the button as an input, and the loop() function continuously runs and calls a separate function responsible for controlling the lights.
+
+The turnOn() function handles the lighting behavior ,which checks if the button is pressed and controls the timing of the porch and hallway lights. Using a modular design enhances the readability and structure of the program while making it easier to modify or add new features later.
