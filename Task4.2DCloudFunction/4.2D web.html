@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Linda Home Lights</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+    }
+
+    .container {
+      text-align: center;
+      background: white;
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    h2 {
+      margin-bottom: 25px;
+    }
+
+    button {
+      display: block;
+      width: 220px;
+      margin: 15px auto;
+      padding: 18px;
+      font-size: 20px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      background-color: #007bff;
+      color: white;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    #status {
+      margin-top: 25px;
+      font-size: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Linda Home Light Control</h2>
+
+    <button onclick="toggleRoom('living room')">Living Room</button>
+    <button onclick="toggleRoom('bathroom')">Bathroom</button>
+    <button onclick="toggleRoom('closet')">Closet</button>
+
+    <p id="status">Waiting for command...</p>
+  </div>
+
+  <script>
+    let roomStates = {
+      "living room": false,
+      "bathroom": false,
+      "closet": false
+    };
+
+    function toggleRoom(room) {
+      roomStates[room] = !roomStates[room];
+
+      if (roomStates[room]) {
+        document.getElementById("status").innerText = room + " light is ON";
+      } else {
+        document.getElementById("status").innerText = room + " light is OFF";
+      }
+
+      console.log("Send to cloud:", room, roomStates[room] ? "ON" : "OFF");
+    }
+  </script>
+</body>
+</html>
