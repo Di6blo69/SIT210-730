@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Linda Home Lights</title>
+
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+    }
+
+    .container {
+      text-align: center;
+      background: white;
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    h2 {
+      margin-bottom: 25px;
+    }
+
+    button {
+      display: block;
+      width: 240px;
+      margin: 15px auto;
+      padding: 18px;
+      font-size: 20px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      background-color: #007bff;
+      color: white;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    #status {
+      margin-top: 25px;
+      font-size: 18px;
+      font-weight: bold;
+      color: #333;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h2>Linda Home Light Control</h2>
+
+    <button onclick="toggleRoom('living room')">Living Room</button>
+    <button onclick="toggleRoom('bathroom')">Bathroom</button>
+    <button onclick="toggleRoom('closet')">Closet</button>
+
+    <p id="status">Waiting for command...</p>
+  </div>
+
+  <script>
+    async function toggleRoom(room) {
+      document.getElementById("status").innerText =
+        "Sending " + room + " command to Arduino Cloud...";
+
+      try {
+        const response = await fetch("http://127.0.0.1:5000/control", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ room: room })
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+          document.getElementById("status").innerText =
+            room + " command sent successfully";
+        } else {
+          document.getElementById("status").innerText =
+            "Failed to send command: " + data.error;
+        }
+      } catch (error) {
+        document.getElementById("status").innerText =
+          "Backend connection failed. Make sure server.py is running.";
+        console.log(error);
+      }
+    }
+  </script>
+</body>
+</html>
