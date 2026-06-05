@@ -21,6 +21,7 @@ void setup() {
   digitalWrite(closetLED, LOW);
 
   initProperties();
+
   ArduinoCloud.begin(ArduinoIoTPreferredConnection);
 
   setDebugMessageLevel(2);
@@ -55,5 +56,8 @@ void toggleRoom(String room) {
 }
 
 void onRoomCommandChange() {
+  Serial.print("Cloud command received: ");
+  Serial.println(roomCommand);
+
   toggleRoom(roomCommand);
 }
